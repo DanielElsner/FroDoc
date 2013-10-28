@@ -8,6 +8,18 @@ function fetchUrl(){
     return 'http://'+domain+'/log';
 }
 
+
+function s4() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+        .toString(16)
+        .substring(1);
+};
+
+function guid() {
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+        s4() + '-' + s4() + s4() + s4();
+}
+
 function createInput(name,value){
     var input = document.createElement("input");
     input.type = "hidden";
@@ -19,7 +31,8 @@ jQuery(document).ready( function(){
     function crossDomainPost(msg) {
         // Add the iframe with a unique name
         var iframe = document.createElement("iframe");
-        var uniqueString = ""+new Date().toTimeString().trim();
+        var uniqueString = guid();
+        iframe.id = uniqueString;
         document.body.appendChild(iframe);
         iframe.style.display = "none";
         iframe.contentWindow.name = uniqueString;
@@ -33,13 +46,19 @@ jQuery(document).ready( function(){
 
 
         form.method = "POST";
-        var time = uniqueString.substr(0,8);
+        var time = ""+new Date().toTimeString().trim().substr(0,8);
         // repeat for each parameter
        form.appendChild(createInput('msg',msg));
        form.appendChild(createInput('time',time));
 
         document.body.appendChild(form);
         form.submit();
+        window.setTimeout(function(){
+            jQuery(form).remove();
+            jQuery('#'+uniqueString).remove();
+
+        },10000) ;
+
     }
 
    console.log = function(msg){
