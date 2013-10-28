@@ -3,15 +3,35 @@
 </head>
 
 <body>
-  {{> hello}}
+  {{> logList}}
+  {{> sessionList}}
+
 </body>
 
-<template name="hello">
+<template name="clientList">
+    <ul>
+        {{#each clients}}
+             <p >{{name}}</p>
+        {{/each}}
+    </ul>
+
+</template>
+
+
+<template name="sessionList">
+    <ul>
+        {{#each sessions}}
+        <li class='{{isSelected}} ' data-token="{{sessionToken}}">{{sessionToken}}</li>
+        {{/each}}
+    </ul>
+
+</template>
+<template name="logList">
   <h1>Hello World!</h1>
 
   <ul>
   {{#each logs}}
-       <li><b>{{time}}</b> -> {{msg}}</li>
+       <li><b>{{time}}</b> : {{sessionId}} -> {{msg}}</li>
 
    {{/each}}
   </ul>

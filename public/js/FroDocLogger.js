@@ -1,4 +1,5 @@
 var globalTimerStop = false;
+var sessionToken = guid();
 function fetchUrl(){
     //TODO get by script src   // replace url crap   with regex
     var srcTag = document.getElementById('froDocSrc');
@@ -28,29 +29,27 @@ function createInput(name,value){
     return input;
 }
 jQuery(document).ready( function(){
+
     function crossDomainPost(msg) {
         // Add the iframe with a unique name
         var iframe = document.createElement("iframe");
         var uniqueString = guid();
+
         iframe.id = uniqueString;
         document.body.appendChild(iframe);
         iframe.style.display = "none";
         iframe.contentWindow.name = uniqueString;
-
         // construct a form with hidden inputs, targeting the iframe
         var form = document.createElement("form");
         form.target = uniqueString;
-
         // insert URL
         form.action = fetchUrl();//"http://daniels-macbook-pro.local:3000/log";
-
-
         form.method = "POST";
         var time = ""+new Date().toTimeString().trim().substr(0,8);
         // repeat for each parameter
        form.appendChild(createInput('msg',msg));
        form.appendChild(createInput('time',time));
-
+        form.appendChild(createInput('sessionToken',sessionToken));
         document.body.appendChild(form);
         form.submit();
         window.setTimeout(function(){
