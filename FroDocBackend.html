@@ -9,9 +9,10 @@
 <template name="hello">
   <h1>Hello World!</h1>
 
-
+  <ul>
   {{#each logs}}
-       <p>{{msg}}</p>
+       <li><b>{{time}}</b> -> {{msg}}</li>
 
    {{/each}}
+  </ul>
 </template>

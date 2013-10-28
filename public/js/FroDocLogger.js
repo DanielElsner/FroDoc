@@ -1,4 +1,20 @@
-var globalTimerStop = true;
+var globalTimerStop = false;
+function fetchUrl(){
+    //TODO get by script src   // replace url crap   with regex
+    var srcTag = document.getElementById('froDocSrc');
+    var url = srcTag.src;
+    var domain =url.split('/')[2];
+
+    return 'http://'+domain+'/log';
+}
+
+function createInput(name,value){
+    var input = document.createElement("input");
+    input.type = "hidden";
+    input.name = name;
+    input.value = value;
+    return input;
+}
 jQuery(document).ready( function(){
     function crossDomainPost(msg) {
         // Add the iframe with a unique name
@@ -13,17 +29,14 @@ jQuery(document).ready( function(){
         form.target = uniqueString;
 
         // insert URL
-        form.action = "http://daniels-macbook-pro.local:3000/log";
+        form.action = fetchUrl();//"http://daniels-macbook-pro.local:3000/log";
 
 
         form.method = "POST";
-
+        var time = uniqueString.substr(0,8);
         // repeat for each parameter
-        var input = document.createElement("input");
-        input.type = "hidden";
-        input.name = "msg";
-        input.value = uniqueString.substr(0,8)+" -- "+msg;
-        form.appendChild(input);
+       form.appendChild(createInput('msg',msg));
+       form.appendChild(createInput('time',time));
 
         document.body.appendChild(form);
         form.submit();
