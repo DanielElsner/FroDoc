@@ -3,15 +3,22 @@
 </head>
 
 <body>
-  {{> logList}}
-  {{> sessionList}}
+   <div class="row-fluid">
+      <div class="span9">
+          {{> logList}}
+      </div>
+      <div class="span3">
+          {{> sessionList}}
+      </div>
+   </div>
+
 
 </body>
 
 <template name="clientList">
     <ul>
         {{#each clients}}
-             <p >{{name}}</p>
+             <li >{{name}}</li>
         {{/each}}
     </ul>
 
@@ -20,6 +27,7 @@
 
 <template name="sessionList">
     <ul>
+        <li class='{{isSelected}} '>All</li>
         {{#each sessions}}
         <li class='{{isSelected}} ' data-token="{{sessionToken}}">{{sessionToken}}</li>
         {{/each}}

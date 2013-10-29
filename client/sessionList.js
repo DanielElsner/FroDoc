@@ -7,11 +7,16 @@ Template.sessionList.sessions = function () {
 };
 Template.sessionList.isSelected = function () {
     var currentSession = Session.get(currentLogSession) ;
-    return currentSession && currentSession.sessionToken == this.sessionToken ? 'selected' : '';
+    return ((currentSession && currentSession.sessionToken == this.sessionToken) ||
+        (! currentSession && ! this.sessionToken))? 'selected' : '';
 }
 
 Template.sessionList.events = {
      'click li' : function(){
-         Session.set(currentLogSession,Sessions.findOne({'sessionToken' : this.sessionToken}))
+         if(this.sessionToken){
+             Session.set(currentLogSession,Sessions.findOne({'sessionToken' : this.sessionToken}))
+         }else{
+             Session.set(currentLogSession,null);
+         }
      }
 }   ;
