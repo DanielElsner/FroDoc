@@ -47,6 +47,9 @@ jQuery(document).ready( function(){
         form.method = "POST";
         var time = ""+new Date().toTimeString().trim().substr(0,8);
         // repeat for each parameter
+        if(msg != null && typeof msg === 'object') {
+            msg = JSON.stringify(msg);
+        }
        form.appendChild(createInput('msg',msg));
        form.appendChild(createInput('time',time));
         form.appendChild(createInput('sessionToken',sessionToken));
@@ -59,7 +62,7 @@ jQuery(document).ready( function(){
         },10000) ;
 
     }
-
+   console = console || {};
    console.log = function(msg){
          crossDomainPost(msg);
    };
