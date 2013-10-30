@@ -1,9 +1,11 @@
 sessionListSelector =  'sessionListSelector';
 currentLogSession = 'currentLogSession';
-Session.set(sessionListSelector,{});
+
 
 Template.sessionList.sessions = function () {
-    return Sessions.find(Session.get(sessionListSelector),{limit:50});
+    var currentClient = Session.get(currentSessionClient) ;
+    var selector = currentClient ? {'clientId' :currentClient._id} : {};
+    return Sessions.find(selector,{sort:{timestamp:'desc'},limit:50});
 };
 Template.sessionList.isSelected = function () {
     var currentSession = Session.get(currentLogSession) ;
@@ -19,4 +21,4 @@ Template.sessionList.events = {
              Session.set(currentLogSession,null);
          }
      }
-}   ;
+};
