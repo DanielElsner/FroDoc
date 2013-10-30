@@ -1,4 +1,3 @@
-var globalTimerStop = false;
 var sessionToken = guid();
 function fetchUrl(){
     //TODO get by script src   // replace url crap   with regex
@@ -66,22 +65,8 @@ jQuery(document).ready( function(){
    console.log = function(msg){
          crossDomainPost(msg);
    };
-    console.log('Logger active');
-
-    //TODO testcode
-    function loop(){
-        window.setTimeout(function(){
-            console.log('loop')
-           if(globalTimerStop){
-               loop();
-           }
-
-        },1000);
+    if(! window.__suppressLoggerActive){
+        console.log('Logger active');
     }
-    loop();
-
-    jQuery('#stop').click(function(){
-        console.log('STOP');
-       globalTimerStop = false;
-    });
+    window.__suppressLoggerActive = true;
 });
