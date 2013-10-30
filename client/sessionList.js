@@ -8,11 +8,11 @@ Template.sessionList.sessions = function () {
 Template.sessionList.isSelected = function () {
     var currentSession = Session.get(currentLogSession) ;
     return ((currentSession && currentSession.sessionToken == this.sessionToken) ||
-        (! currentSession && ! this.sessionToken))? 'selected' : '';
+        (! currentSession && ! this.sessionToken))? 'active' : '';
 }
 
 Template.sessionList.events = {
-     'click li' : function(){
+     'click li a' : function(){
          if(this.sessionToken){
              Session.set(currentLogSession,Sessions.findOne({'sessionToken' : this.sessionToken}))
          }else{

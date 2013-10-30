@@ -26,10 +26,10 @@
 
 
 <template name="sessionList">
-    <ul>
-        <li class='{{isSelected}} '>All</li>
+    <ul class="nav nav-pills nav-stacked">
+        <li class='{{isSelected}} '><a href="#">All</a></li>
         {{#each sessions}}
-        <li class='{{isSelected}} ' data-token="{{sessionToken}}">{{sessionToken}}</li>
+        <li class='{{isSelected}} '> <a href="#" data-token="{{sessionToken}}">{{sessionToken}}</a></li>
         {{/each}}
     </ul>
 
