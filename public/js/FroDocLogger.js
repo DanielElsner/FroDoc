@@ -77,7 +77,7 @@ function createInput(name,value){
     var input = document.createElement("input");
     input.type = "hidden";
     input.name = name;
-    input.value = value;
+    input.value = JSON.stringify(value);
     return input;
 }
 function crossDomainPost(msg) {
@@ -104,6 +104,7 @@ function crossDomainPost(msg) {
     form.appendChild(createInput('time',time));
     form.appendChild(createInput('sessionToken',sessionToken));
     form.appendChild(createInput('clientToken',clientToken));
+//    form.appendChild(createInput('userAgent',clientToken));
     document.body.appendChild(form);
     form.submit();
     window.setTimeout(function(){

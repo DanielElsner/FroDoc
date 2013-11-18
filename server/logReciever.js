@@ -67,9 +67,9 @@ Meteor.Router.add('/log',function(){
     var message = this.request.body.msg;
     var obj = {msg: message};
     obj.timestamp = new Date();
-    obj.time = this.request.body.time;
-    obj.clientId = fetchClientId(this.request.body.clientToken);
-    obj.sessionId = fetchSessionId(this.request.body.sessionToken,obj.clientId);
+    obj.time = JSON.parse(this.request.body.time);
+    obj.clientId = fetchClientId(JSON.parse(this.request.body.clientToken));
+    obj.sessionId = fetchSessionId(JSON.parse(this.request.body.sessionToken,obj.clientId));
 
     Logs.insert(obj);
 });
