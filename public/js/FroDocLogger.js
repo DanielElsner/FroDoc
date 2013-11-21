@@ -117,5 +117,8 @@ function crossDomainPost(msg) {
 
 jQuery(document).ready( function(){
     overrideConsoleLog();
+    window.onerror = function(msg, url,lineNumber){
+        console.log(msg + ' '+url+' '+lineNumber);
+    }
 });
 overrideConsoleLog();
